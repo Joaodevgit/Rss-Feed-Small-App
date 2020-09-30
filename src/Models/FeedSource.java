@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
 import java.net.MalformedURLException;
@@ -10,14 +5,8 @@ import java.net.URL;
 import rss.resources.app.Models.FeedSourceContract;
 import rss.resources.app.exceptions.FeedException;
 
-/*
-* Nome: João Tiago Moreira Pereira
-* Número: 8170202
-* Turma: LEI1T2
-*
-* Nome: José Miguel Araújo de Carvalho
-* Número: 8150146
-* Turma: LEI1T2
+/**
+ * @author João Pereira
  */
 public class FeedSource implements FeedSourceContract {
 
@@ -31,13 +20,13 @@ public class FeedSource implements FeedSourceContract {
             setURL(url);
             this.id = idContador++;
         } catch (FeedException ex) {
-            System.out.println("Url inválido");
+            System.out.println("Invalid Url");
             throw new FeedException();
         }
     }
 
     /**
-     * Método que obtém o {@link FeedSource#id} de {@link FeedSource}
+     * Method that obtains the {@link FeedSource #id} of {@link FeedSource}
      *
      * @return {@link FeedSource#id}
      */
@@ -47,9 +36,9 @@ public class FeedSource implements FeedSourceContract {
     }
 
     /**
-     * Método que retorna o {@link FeedSource#url} de {@link FeedSource}
+     * Method that returns {@link FeedSource #url} of {@link FeedSource}
      *
-     * @return Uniform Resource Locator de {@link FeedSource}
+     * @return Uniform Resource Locator of {@link FeedSource}
      */
     @Override
     public String getURL() {
@@ -57,11 +46,11 @@ public class FeedSource implements FeedSourceContract {
     }
 
     /**
-     * Método responsável pela validação do {@link FeedSource#url}
+     * Method responsible for validating the {@link FeedSource #url}
      *
-     * @param url a ser validado
-     * @throws FeedException exceção lançada caso o {@link FeedSource#url} seja
-     * inválido
+     * @param url to be validated
+     * @throws FeedException exception thrown if {@link FeedSource #url} is
+     * invalid
      */
     @Override
     public void setURL(String url) throws FeedException {
@@ -70,22 +59,14 @@ public class FeedSource implements FeedSourceContract {
             URL u = new URL(url);
             this.url = url;
         } catch (MalformedURLException ex) {
-            throw new FeedException("URL Invalida");
+            throw new FeedException("Invalid URL");
         }
-
-//        String http = "http://";
-//        String https = "https://";
-//        if (!(url.startsWith(http)) && !(url.startsWith(https))) {
-//            //throw new FeedException("erro url invaaalido");
-//            url = "http://" + url;
-//        }
-//        this.url = url;
     }
 
     /**
-     * Método responsável pela impressão dos atributos de {@link FeedSource}
+     * Textual representation of {@link FeedSource}
      *
-     * @return dados de {@link FeedSource}
+     * @return {@link FeedSource} information
      */
     @Override
     public String toString() {

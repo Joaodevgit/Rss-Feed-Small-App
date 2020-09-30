@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controllers;
 
 import Models.FeedGroup;
@@ -24,14 +19,8 @@ import rss.resources.app.Models.FeedItemContract;
 import rss.resources.app.exceptions.FeedException;
 import rss.resources.app.exceptions.ObjectmanagementException;
 
-/*
-* Nome: João Tiago Moreira Pereira
-* Número: 8170202
-* Turma: LEI1T2
-*
-* Nome: José Miguel Araújo de Carvalho
-* Número: 8150146
-* Turma: LEI1T2
+/**
+ * @author João Pereira
  */
 public class App implements AppContract {
 
@@ -47,7 +36,7 @@ public class App implements AppContract {
     }
 
     /**
-     * Método que retorna o {@link App#numberGroups} de {@link App}
+     * Method that returns {@link App #numberGroups} of {@link App}
      *
      * @return {@link App#numberGroups}
      */
@@ -57,7 +46,7 @@ public class App implements AppContract {
     }
 
     /**
-     * Método que retorna o array {@link App#groups} de {@link App}
+     * Method that returns the array {@link App #groups} of {@link App}
      *
      * @return array {@link App#groups}
      */
@@ -67,22 +56,22 @@ public class App implements AppContract {
     }
 
     /**
-     * Método responsável pela adição de um {@link FeedGroup} no array
-     * {@link App#groups} , preservando a ordem de inserção
+     * Method responsible for adding an {@link FeedGroup} to the array
+     * {@link App #groups}, preserving the insertion order
      *
-     * @param title do {@link FeedGroup}
+     * @param title of {@link FeedGroup}
      *
-     * @param description do {@link FeedGroup}
+     * @param description of {@link FeedGroup}
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     @Override
     public boolean addGroup(String title, String description) {
 
         if (title == null || description == null) {
-            throw new NullPointerException("Não é possível adicionar um grupo de feeds (Uma ou mais variáveis são nula(s))");
+            throw new NullPointerException("Unable to add a feed group (One or more variables are null)");
         } else if (this.numberGroups == MAX_GROUPS) {
-            throw new ArrayIndexOutOfBoundsException("Não é possível adicionar um grupo (Array cheio)");
+            throw new ArrayIndexOutOfBoundsException("Unable to add a group (Array full)");
         } else {
             FeedGroup temp_group = new FeedGroup(this.groupid++, title, description);
 
@@ -90,7 +79,7 @@ public class App implements AppContract {
                 if (this.groups[i] == null) {
                     this.groups[i] = temp_group;
                     this.numberGroups++;
-                    System.out.println("Grupo adicionado com sucesso");
+                    System.out.println("Group added successfully");
                     return true;
                 }
             }
@@ -99,15 +88,15 @@ public class App implements AppContract {
     }
 
     /**
-     * Método responsável pela remoção da primeira ocorrência de um
-     * {@link FeedGroup} no array {@link App#groups}
+     * Method responsible for removing the first occurrence of an
+     * {@link FeedGroup} in the {@link App #groups} array
      *
-     * @param id do {@link FeedGroup} a ser removido
+     * @param id id of {@link FeedGroup} to be removed
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      *
-     * @throws ObjectmanagementException exceção lançada caso o
-     * {@link FeedGroup} não exista no array {@link App#groups}
+     * @throws ObjectmanagementException exception thrown if {@link FeedGroup}
+     * does not exist in the array {@link App #groups}
      */
     @Override
     public boolean removeGroup(int id) throws ObjectmanagementException {
@@ -115,10 +104,10 @@ public class App implements AppContract {
         int pos;
 
         if (this.numberGroups == 0) {
-            throw new NullPointerException("Não é possível remover o grupo)");
+            throw new NullPointerException("Cannot remove the group");
         } else {
             if (findGroupByID(id) == -1) {
-                throw new ObjectmanagementException("Não é possível remover o grupo de feeds (Grupo não encontrado)");
+                throw new ObjectmanagementException("Cannot remove feed group (Group not found)");
             } else {
                 pos = findGroupByID(id);
                 while (pos < this.groups.length - 1) {
@@ -127,44 +116,44 @@ public class App implements AppContract {
                 }
                 this.groups[this.numberGroups - 1] = null;
                 this.numberGroups--;
-                System.out.println("Grupo de feeds removido com sucesso");
+                System.out.println("Feed group removed successfully");
                 return true;
             }
         }
     }
 
     /**
-     * Método responsável por obter um {@link FeedGroup} no array de
-     * {@link App#groups} dada a sua posição no array
+     * Method responsible for obtaining an {@link FeedGroup} in the array of
+     * {@link App #groups} given its position in the array
      *
-     * @param pos posição do {@link FeedGroup}
+     * @param pos position of {@link FeedGroup}
      *
-     * @return {@link FeedGroup} na posição dada
+     * @return {@link FeedGroup} in the given position
      *
-     * @throws ObjectmanagementException exceção lançada caso o
-     * {@link FeedGroup} não exista na posição dada
+     * @throws ObjectmanagementException exception thrown if {@link FeedGroup}
+     * does not exist in the position given
      */
     @Override
     public FeedGroupContract getGroup(int pos) throws ObjectmanagementException {
         if (this.groups[pos] == null) {
-            throw new ObjectmanagementException("Grupo não existe na posição dada");
+            throw new ObjectmanagementException("Group does not exist in the given position");
         } else if (pos < 0 || pos > this.groups.length - 1) {
-            throw new ArrayIndexOutOfBoundsException("Posição inválida");
+            throw new ArrayIndexOutOfBoundsException("Invalid Position");
         }
 
         return this.groups[pos];
     }
 
     /**
-     * Método responsável por obter um {@link FeedGroup} no array de
-     * {@link App#groups} dado o id do {@link FeedGroup}
+     * Method responsible for obtaining an {@link FeedGroup} in the array of
+     * {@link App #groups} given the id of the {@link FeedGroup}
      *
-     * @param id do {@link FeedGroup}
+     * @param id id of {@link FeedGroup}
      *
-     * @return {@link FeedGroup} do id dado
+     * @return {@link FeedGroup} of the given id
      *
-     * @throws ObjectmanagementException exceção lançada caso o
-     * {@link FeedGroup} não exista com o id dado
+     * @throws ObjectmanagementException exception thrown if {@link FeedGroup}
+     * does not exist with the given id
      */
     @Override
     public FeedGroupContract getGroupByID(int id) throws ObjectmanagementException {
@@ -173,19 +162,19 @@ public class App implements AppContract {
                 return this.groups[i];
             }
             if (i == MAX_GROUPS - 1) {
-                throw new ObjectmanagementException("Grupo não existe na posição dada");
+                throw new ObjectmanagementException("Group does not exist in the given position");
             }
         }
         return null;
     }
 
     /**
-     * Método responsável por pesquisar por todos os {@link FeedItem} salvos que
-     * contêm uma tag específica
+     * Method responsible for searching all {@link FeedItem} saved that contain
+     * a specific tag
      *
-     * @param tag tag a ser procurada
+     * @param tag tag to be searched
      *
-     * @return {@link FeedItem} da tag dada
+     * @return {@link FeedItem} of the given tag
      */
     @Override
     public FeedItemContract[] getItemsByTag(String tag) {
@@ -219,11 +208,11 @@ public class App implements AppContract {
     }
 
     /**
-     * Método responsável por escrever/armazenar os {@link App#groups} para
-     * ficheiro em formato JSON
+     * Method responsible for writing/storing the {@link App #groups} to JSON
+     * format file
      *
-     * @throws Exception exceção lançada quando existem problema ao nível do I/O
-     * ou problemas de conversão que possam ocorrer
+     * @throws Exception exception thrown when there are problems at the level
+     * of I/O or conversion problems that may occur
      */
     @Override
     public void saveGroups() throws Exception {
@@ -247,7 +236,7 @@ public class App implements AppContract {
             file.write(group.toJSONString());
             file.flush();
             file.close();
-            System.out.println("Grupo GUARDADO EM FICHEIRO");
+            System.out.println("Group SAVED IN FILE");
         } catch (Exception ex) {
             System.out.println("I/O problem");
         }
@@ -255,11 +244,11 @@ public class App implements AppContract {
     }
 
     /**
-     * Método responsável por ler/carregar os {@link App#groups} a partir de um
-     * ficheiro em formato JSON
+     * Method responsible for reading/loading the {@link App #groups} from a
+     * file in JSON format
      *
-     * @throws Exception exceção lançada quando existem problema ao nível do I/O
-     * ou problemas de conversão que possam ocorrer
+     * @throws Exception exception thrown when there are problems at the level
+     * of I/O or conversion problems that may occur
      */
     @Override
     public void loadGroups() throws Exception {
@@ -269,7 +258,7 @@ public class App implements AppContract {
             JSONObject jsonObject = (JSONObject) grupos;
 
             JSONArray arrayGrupos = (JSONArray) jsonObject.get("group");
-            System.out.println("Grupo(s) carregado(s) a partir do ficheiro JSON: ");
+            System.out.println("Group(s) loaded from JSON file: ");
 
             for (Object gr : arrayGrupos) {
                 System.out.println(gr.toString());
@@ -281,7 +270,7 @@ public class App implements AppContract {
     }
 
     /**
-     * Retorna o número de {@link FeedItem} armazenados em {@link App}
+     * Returns the number of {@link FeedItem} stored in {@link App}
      *
      * @return array {@link FeedItem}
      */
@@ -290,12 +279,12 @@ public class App implements AppContract {
 
         FeedItem[] feedItems = new FeedItem[100];
         int i = 0;
-        File data = new File("dataItems"); // aceder/ler diretório data
+        File data = new File("dataItems"); // access/read data directory
 
-        File[] ficheiros = data.listFiles(); // lista todos os ficheiros dentro do diretório
+        File[] ficheiros = data.listFiles(); // lists all files within the directory
 
         for (File ficheiro : ficheiros) {
-            if (ficheiro.getName().startsWith("item_") && ficheiro.getName().endsWith(".json")) { // filtrar todos os ficheiros que são feed items
+            if (ficheiro.getName().startsWith("item_") && ficheiro.getName().endsWith(".json")) { // filter all files that are feed items
                 feedItems[i] = getSavedItem(ficheiro);
                 i++;
             }
@@ -310,11 +299,11 @@ public class App implements AppContract {
     }
 
     /**
-     * Método que procura/obtém um {@link FeedItem} salvo nos ficheiros
+     * Method that looks for/gets a {@link FeedItem} saved in files
      *
-     * @param ficheiro onde se encontra o item a ser lido
+     * @param ficheiro where is the item to be read
      *
-     * @return o {@link FeedItem} carregado
+     * @return the {@link FeedItem} loaded
      */
     private FeedItem getSavedItem(File ficheiro) {
         try {
@@ -322,25 +311,16 @@ public class App implements AppContract {
 
             FileReader fr = new FileReader(ficheiro);
 
-            JSONObject j = (JSONObject) new JSONParser().parse(fr); // analisa o ficheiro em json e constrói o JSONObject 
+            JSONObject j = (JSONObject) new JSONParser().parse(fr); // parse the file in json and build the JSONObject 
 
             feedItem.setTitle((String) j.get("title"));
             feedItem.setAuthor((String) j.get("author"));
             feedItem.setDescription((String) j.get("description"));
-            //feedItem.setPublicationDate((Calendar) j.get("publication_date")); Dá erro
             try {
                 feedItem.setContentURL((String) j.get("url"));
             } catch (FeedException e) {
                 System.out.println(e.getMessage());
             }
-
-//            JSONArray tags = (JSONArray) j.get("tags");
-//            int p = 0;
-//            for (int t = 0; t < feedItem.numberTags(); t++) {
-//                feedItem.setTag(t, (String) tags.get(p));
-//                p++;
-//            }
-//            JSONArray categories = (JSONArray) j.get("categories");
             System.out.println(j.toString());
             fr.close();
             return feedItem;
@@ -353,22 +333,21 @@ public class App implements AppContract {
     }
 
     /**
-     * Remove um determinado {@link FeedItem} armazenado em ficheiro JSON dada a
-     * sua posição
+     * Removes a given {@link FeedItem} stored in a JSON file given its position
      *
-     * @param i posição do {@link FeedItem} a ser removido
+     * @param i position of {@link FeedItem} to be removed
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     @Override
     public boolean removeSavedItem(int i) {
 
-        File data = new File("dataItems"); // aceder/ler diretório data
+        File data = new File("dataItems"); // access/read data directory
 
-        File[] ficheiros = data.listFiles(); // lista todos os ficheiros dentro do diretório
+        File[] ficheiros = data.listFiles(); // lists all files within the directory
         int n = -1;
         for (File ficheiro : ficheiros) {
-            if (ficheiro.getName().startsWith("item_") && ficheiro.getName().endsWith(".json")) { // filtrar todos os ficheiros que são feed items
+            if (ficheiro.getName().startsWith("item_") && ficheiro.getName().endsWith(".json")) { // filter all files that are feed items
                 n++;
                 if (i == n) {
                     return ficheiro.delete();
@@ -380,12 +359,11 @@ public class App implements AppContract {
     }
 
     /**
-     * Método responsável por encontrar um {@link FeedGroup} no array de
-     * {@link App#groups} dado o seu id
+     * Method responsible for finding an {@link FeedGroup} in the array of {@link App # groups} given its id
+     * 
+     * @param id of {@link FeedGroup} to be found
      *
-     * @param id da {@link FeedGroup} a ser encontrado
-     *
-     * @return posição do {@link FeedGroup} no array {@link App#groups}
+     * @return position of {@link FeedGroup} in the array{@link App#groups}
      */
     public int findGroupByID(int id) {
 

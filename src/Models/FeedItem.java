@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
@@ -18,14 +12,8 @@ import rss.resources.app.Models.TagContract;
 import rss.resources.app.exceptions.FeedException;
 import rss.resources.app.exceptions.ObjectmanagementException;
 
-/*
-* Nome: João Tiago Moreira Pereira
-* Número: 8170202
-* Turma: LEI1T2
-*
-* Nome: José Miguel Araújo de Carvalho
-* Número: 8150146
-* Turma: LEI1T2
+/**
+ * @author João Pereira
  */
 public class FeedItem implements FeedItemContract {
 
@@ -69,7 +57,7 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método que retorna o {@link FeedItem#itemID} do {@link FeedItem}
+     * Method that returns {@link FeedItem #itemID} of {@link FeedItem}
      *
      * @return {@link FeedItem#itemID}
      */
@@ -78,17 +66,17 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link FeedItem#itemID} de
+     * Method responsible for defining {@link FeedItem #itemID} of
      * {@link FeedItem}
      *
-     * @param itemID substitui o id do item de {@link FeedItem}
+     * @param itemID new itemID of {@link FeedItem}
      */
     public void setItemID(int itemID) {
         this.itemID = itemID;
     }
 
     /**
-     * Método que retorna o {@link FeedItem#title} do {@link FeedItem}
+     * Method that returns {@link FeedItem #title} of {@link FeedItem}
      *
      * @return {@link FeedItem#title}
      */
@@ -98,10 +86,10 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link FeedItem#title} de
+     * Method responsible for defining {@link FeedItem #title} of
      * {@link FeedItem}
      *
-     * @param title substitui o título de {@link FeedItem}
+     * @param title new title of {@link FeedItem}
      */
     @Override
     public void setTitle(String title) {
@@ -109,7 +97,7 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método que retorna o {@link FeedItem#contentUrl} do {@link FeedItem}
+     * Method that returns {@link FeedItem #contentUrl} of {@link FeedItem}
      *
      * @return {@link FeedItem#contentUrl}
      */
@@ -119,23 +107,23 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável pela substituição e validação do url
+     * Method responsible for defining and validating the url
      *
-     * @param contentUrl {@link FeedItem#contentUrl} de {@link FeedItem}
-     * @throws FeedException exceção lançada caso o url não seja válido
+     * @param contentUrl {@link FeedItem#contentUrl} of {@link FeedItem}
+     * @throws FeedException exception thrown if the url is not valid
      */
     @Override
     public void setContentURL(String contentUrl) throws FeedException {
         String http = "http://";
         String https = "https://";
         if (!(contentUrl.startsWith(http)) && !(contentUrl.startsWith(https))) {
-            throw new FeedException("URL inválido");
+            throw new FeedException("Invalid URL");
         }
         this.contentUrl = contentUrl;
     }
 
     /**
-     * Método que retorna a {@link FeedItem#description} do {@link FeedItem}
+     * Method that returns {@link FeedItem #description} of {@link FeedItem}
      *
      * @return {@link FeedItem#description}
      */
@@ -145,10 +133,10 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável pela substituição da {@link FeedItem#description} de
+     * Method responsible for defining {@link FeedItem #description} of
      * {@link FeedItem}
      *
-     * @param description substitui a descrição de {@link FeedItem}
+     * @param description new description of {@link FeedItem}
      */
     @Override
     public void setDescription(String description) {
@@ -156,29 +144,29 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável por adicionar uma categoria ao array de
-     * {@link FeedItem#categories}
+     * Method responsible for adding a category to the
+     * {@link FeedItem #categories} array
      *
-     * @param category a ser adicionada
+     * @param category to be added
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     @Override
     public boolean addCategory(String category) {
         if (category == null) {
-            throw new NullPointerException("Não é possível adicionar a categoria no item (Categoria nula)");
+            throw new NullPointerException("Cannot add category to item (Category null)");
         } else if (this.numberCategories == MAX_CATEGORIES) {
-            throw new ArrayIndexOutOfBoundsException("Não é possível adicionar uma categoria no item (Array cheio)");
+            throw new ArrayIndexOutOfBoundsException("Cannot add a category to the item (Array full)");
         } else {
-            /*
-             fiz este ciclo for caso seja necessário acrescentar um método que  
-             a remova as categorias de um feedItem
+            /**
+             * This for loop was made in case of being necessary adding a method
+             * that removes the categories from a feedItem
              */
             for (int i = 0; i < this.categories.length; i++) {
                 if (this.categories[i] == null) {
                     this.categories[i] = category;
                     this.numberCategories++;
-                    System.out.println("Categoria do item adicionada.");
+                    System.out.println("Item category added.");
                     return true;
                 }
             }
@@ -187,28 +175,28 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável por obter uma categoria no array de
-     * {@link FeedItem#categories} dada a sua posição no array
+     * Method responsible for obtaining a category in the
+     * {@link FeedItem #categories} array given its position in the array
      *
-     * @param i posição da categoria
+     * @param i category postion
      *
-     * @return categoria na posição dada
+     * @return category in the given position
      *
-     * @throws ObjectmanagementException exceção lançada caso a categoria não
-     * exista na posição dada
+     * @throws ObjectmanagementException exception thrown if the category does
+     * not exist in the position given
      */
     @Override
     public String getCategory(int i) throws ObjectmanagementException {
         if (this.categories[i] == null) {
-            throw new ObjectmanagementException("Categoria não existente.");
+            throw new ObjectmanagementException("Category does not exist.");
         } else if (i < 0 || i > this.categories.length - 1) {
-            throw new ArrayIndexOutOfBoundsException("Posição inválida");
+            throw new ArrayIndexOutOfBoundsException("Invalid position");
         }
         return this.categories[i];
     }
 
     /**
-     * Método que retorna a {@link FeedItem#numberCategories} do
+     * Method that returns {@link FeedItem #numberCategories} of
      * {@link FeedItem}
      *
      * @return {@link FeedItem#numberCategories}
@@ -219,7 +207,7 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método que retorna a {@link FeedItem#publicationDate} do {@link FeedItem}
+     * Method that returns {@link FeedItem #publicationDate} of {@link FeedItem}
      *
      * @return {@link FeedItem#publicationDate}
      */
@@ -229,10 +217,10 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável pela substituição da {@link FeedItem#publicationDate}
-     * de {@link FeedItem}
+     * Method responsible for defining {@link FeedItem #publicationDate} of
+     * {@link FeedItem}
      *
-     * @param publicationDate substitui a data de publicação de {@link FeedItem}
+     * @param publicationDate new publication date of {@link FeedItem}
      */
     @Override
     public void setPublicationDate(Calendar publicationDate) {
@@ -240,7 +228,7 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método que retorna o {@link FeedItem#author} do {@link FeedItem}
+     * Method that returns {@link FeedItem author} of {@link FeedItem}
      *
      * @return {@link FeedItem#author }
      */
@@ -250,10 +238,10 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link FeedItem#author} de
+     * Method responsible for defining {@link FeedItem #author} of
      * {@link FeedItem}
      *
-     * @param author substitui o autor de {@link FeedItem}
+     * @param author new author of {@link FeedItem}
      */
     @Override
     public void setAuthor(String author) {
@@ -261,7 +249,7 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método que retorna a {@link FeedItem#numberTags} do {@link FeedItem}
+     * Method that returns {@link FeedItem #numberTags} of {@link FeedItem}
      *
      * @return {@link FeedItem#numberTags}
      */
@@ -273,9 +261,9 @@ public class FeedItem implements FeedItemContract {
     public TagContract setTag(int i, String tag) {
 
         if (i < 0 || i > this.tags.length - 1) {
-            throw new ArrayIndexOutOfBoundsException("Posição inválida");
+            throw new ArrayIndexOutOfBoundsException("Invalid position");
         } else if (tag == null) {
-            throw new NullPointerException("Tag nula");
+            throw new NullPointerException("Null tag");
         }
 
         this.tags[i].setName(tag);
@@ -284,53 +272,54 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Adiciona uma {@link Tag} tendo em conta as condições do array
-     * {@link FeedItem#tags} ( se está cheio, se o nome da tag já existe ou se a
-     * tag a ser adicionada tem valor null
+     * Add an {@link Tag} taking into account the conditions of the array
+     * {@link FeedItem #tags} (if it is full, if the tag name already exists or
+     * if the tag to be added has a null value)
      *
      * @param tagName {@link Tag#name}
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      *
-     * @throws FeedException se o nome da tag já existe no array
+     * @throws FeedException if the tag name already exists in the array
      */
     @Override
     public boolean addTag(String tagName) throws FeedException {
 
         if (tagName == null) {
-            throw new NullPointerException("Não é possível adicionar tag (nome da tag nula)");
+            throw new NullPointerException("Unable to add tag (null tag name)");
         } else if (hasTag(tagName)) {
-            throw new FeedException("Não é possível adicionar tag (tag já existente)");
+            throw new FeedException("Unable to add tag (existing tag)");
         } else if (numberTags == MAX_TAGS) {
-            throw new ArrayIndexOutOfBoundsException("Não é possível adicionar tag (array de tags cheio)");
+            throw new ArrayIndexOutOfBoundsException("Unable to add tag (full tag array)");
         } else {
             Tag temp_tag = new Tag(this.tagID++, tagName);
             this.tags[this.numberTags] = temp_tag;
             this.numberTags++;
-            System.out.println("Tag adicionada com sucesso");
+            System.out.println("Tag successfully added");
             return true;
         }
     }
 
     /**
-     * Remove uma {@link Tag} no array {@link FeedItem#tags} dado o seu
-     * {@link Tag#id}
+     * Removes an {@link Tag} in the {@link FeedItem #tags} array given its
+     * {@link Tag #id}
      *
-     * @param id da {@link Tag} a ser removida
+     * @param id of {@link Tag} to be removed
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      *
-     * @throws ObjectmanagementException {@link Tag} a ser removida for nula
+     * @throws ObjectmanagementException exception thrown if the {@link Tag} to
+     * be removed is null
      */
     @Override
     public boolean removeTag(int id) throws ObjectmanagementException {
 
         if (numberTags == 0) {
-            throw new NullPointerException("Não é possível remover o feed)");
+            throw new NullPointerException("Unable to remove the feed");
         } else {
             int pos = findTagByID(id);
             if (pos == -1) {
-                throw new ObjectmanagementException("Não é possível remover o feed (Feed não encontrado)");
+                throw new ObjectmanagementException("Unable to remove feed (Feed not found)");
             } else {
                 while (pos < this.tags.length - 1) {
                     this.tags[pos] = this.tags[pos + 1];
@@ -338,54 +327,46 @@ public class FeedItem implements FeedItemContract {
                 }
                 this.tags[numberTags - 1] = null;
                 this.numberTags--;
-                System.out.println("Tag removida com sucesso");
+                System.out.println("Tag removed successfully");
                 return true;
             }
         }
     }
 
     /**
-     * Método responsável por obter uma {@link Tag} no array de
-     * {@link FeedItem#tags} dada a sua posição no array
+     * Method responsible for obtaining an {@link Tag} in the array of
+     * {@link FeedItem #tags} given its position in the array
      *
-     * @param i posição da {@link Tag}
+     * @param i position of {@link Tag}
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      *
-     * @throws ObjectmanagementException exceção lançada caso a {@link Tag} não
-     * exista na posição dada
+     * @throws ObjectmanagementException exception thrown if {@link Tag} does
+     * not exist in the position given
      */
     @Override
     public TagContract getTag(int i) throws ObjectmanagementException {
 
         if (this.tags[i] == null) {
-            throw new ObjectmanagementException("Tag não existe na posição dada");
+            throw new ObjectmanagementException("Tag does not exist in the given position");
         } else if (i < 0 || i > this.tags.length - 1) {
-            throw new ArrayIndexOutOfBoundsException("Posição inválida");
+            throw new ArrayIndexOutOfBoundsException("Invalid position");
         }
         return this.tags[i];
     }
 
     /**
-     * Método responsável por escrever/armazenar um {@link FeedItem} para
-     * ficheiro em formato JSON ( cada item é armazenado num ficheiro à parte ,
-     * ou seja 10 items 10 ficheiros)
-     *
+     * Method responsible for writing/storing a {@link FeedItem} to file in JSON
+     * format (each item is stored in a separate file, that is, 10 items 10
+     * files)
      */
     @Override
     public void saveItem() {
-//        try {
-//            Files.write(Paths.get("dataItem/item_" + this.itemID + ".gson.json"), new Gson().toJson(this).getBytes("UTF-8"));
-//        } catch (Exception ex) {
-//            Logger.getLogger(FeedItem.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
         JSONObject item = new JSONObject();
 
         item.put("title", getTitle());
         item.put("author", getAuthor());
         item.put("description", getDescription());
-        //item.put("publication_date", getPublicationDate().getTime().toString()); //Problemas em apresentar a data
         item.put("url", getContentURL());
 
         JSONArray tagsFile = new JSONArray();
@@ -407,12 +388,9 @@ public class FeedItem implements FeedItemContract {
         }
 
         item.put("categories", categoriesFile);
-        //File data = new File("dataItems"); // aceder/ler diretório data
-        //File[] ficheiros = data.listFiles();
-        try (FileWriter file = new FileWriter("dataItems/item_" + this.itemID/*ficheiros.length*/ + ".json")) {
+        try (FileWriter file = new FileWriter("dataItems/item_" + this.itemID + ".json")) {
             file.write(item.toJSONString());
-            //file.flush();
-            System.out.println("ITEM GUARDADO EM FICHEIRO");
+            System.out.println("ITEM SAVED IN FILE");
             file.close();
         } catch (IOException ex) {
             Logger.getLogger(FeedItem.class.getName()).log(Level.SEVERE, null, ex);
@@ -420,12 +398,12 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável por verificar se a {@link Tag} existe no array
-     * {@link FeedItem#tags} ou não
+     * Method responsible for checking whether the {@link Tag} exists in the
+     * {@link FeedItem #tags} array or not
      *
-     * @param tag {@link Tag} a ser encontrada
+     * @param tag {@link Tag} to be found
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     public boolean hasTag(String tag) {
 
@@ -438,12 +416,12 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Método responsável por encontrar uma {@link Tag} no array de
-     * {@link FeedItem#tags} dado o seu id
+     * Method responsible for finding an {@link Tag} in the array of
+     * {@link FeedItem #tags} given its id
      *
-     * @param id da {@link Tag} a ser encontrada
+     * @param id of {@link Tag} to be found
      *
-     * @return posição da {@link Tag} no array {@link FeedItem#tags}
+     * @return {@link Tag} position in array {@link FeedItem #tags}
      */
     public int findTagByID(int id) {
 
@@ -459,23 +437,23 @@ public class FeedItem implements FeedItemContract {
     }
 
     /**
-     * Representação textual de {@link FeedItem}
+     * Textual representation of {@link FeedItem}
      *
-     * @return informação de {@link FeedItem}
+     * @return {@link FeedItem} information
      */
     @Override
     public String toString() {
 
-        String string = "FeedItem{" + "id: " + itemID + ", título: " + title + ", url: " + contentUrl + ", descrição: "
-                + description + ", itemPublicationDate: " + (publicationDate == null ? "N/D" : publicationDate.getTime()) + ", autor: "
-                + author + ", numberTags: " + numberTags + "\n" + "Tags do item: {" + "\n";
+        String string = "FeedItem{" + "id: " + itemID + ", title: " + title + ", url: " + contentUrl + ", description: "
+                + description + ", itemPublicationDate: " + (publicationDate == null ? "N/D" : publicationDate.getTime()) + ", author: "
+                + author + ", numberTags: " + numberTags + "\n" + "Item tags: {" + "\n";
         int i = 0;
         while (i < this.numberTags) {
             string += "\t" + this.tags[i].toString() + "\n";
             i++;
         }
 
-        String string2 = "\n" + "Categorias do item: {" + "\n";
+        String string2 = "\n" + "Item categories: {" + "\n";
 
         int j = 0;
         while (j < this.numberCategories) {
@@ -484,6 +462,5 @@ public class FeedItem implements FeedItemContract {
         }
 
         return string + '}' + string2 + '}';
-
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
 import rss.resources.app.Models.FeedContract;
@@ -12,14 +7,8 @@ import rss.resources.app.exceptions.FeedException;
 import rss.resources.app.exceptions.GroupException;
 import rss.resources.app.exceptions.ObjectmanagementException;
 
-/*
-* Nome: João Tiago Moreira Pereira
-* Número: 8170202
-* Turma: LEI1T2
-*
-* Nome: José Miguel Araújo de Carvalho
-* Número: 8150146
-* Turma: LEI1T2
+/**
+ * @author João Pereira
  */
 public class FeedGroup implements FeedGroupContract {
 
@@ -48,7 +37,7 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método que retorna o {@link FeedGroup#groupID} do {@link FeedGroup}
+     * Method that returns {@link FeedGroup #groupID} of {@link FeedGroup}
      *
      * @return {@link FeedGroup#groupID}
      */
@@ -58,17 +47,17 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link FeedGroup#groupID} de
+     * Method responsible for defining {@link FeedGroup #groupID} of
      * {@link FeedGroup}
      *
-     * @param groupID substitui o id de {@link FeedGroup}
+     * @param groupID new groupID of {@link FeedGroup}
      */
     private void setID(int groupID) {
         this.groupID = groupID;
     }
 
     /**
-     * Método que retorna o {@link FeedGroup#groupTitle} do {@link FeedGroup}
+     * Method that returns {@link FeedGroup #groupTitle} of {@link FeedGroup}
      *
      * @return {@link FeedGroup#groupTitle}
      */
@@ -78,10 +67,10 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link FeedGroup#groupTitle} de
+     * Method responsible for defining {@link FeedGroup #groupTitle} of
      * {@link FeedGroup}
      *
-     * @param groupTitle substitui o título de {@link FeedGroup}
+     * @param groupTitle new title of {@link FeedGroup}
      */
     @Override
     public void setTitle(String groupTitle) {
@@ -89,7 +78,7 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método que retorna o {@link FeedGroup#groupDescription} do
+     * Method that returns {@link FeedGroup #groupDescription} of
      * {@link FeedGroup}
      *
      * @return {@link FeedGroup#groupDescription}
@@ -100,10 +89,10 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável pela substituição do
-     * {@link FeedGroup#groupDescription} de {@link FeedGroup}
+     * Method responsible for defining {@link FeedGroup #groupDescription} of
+     * {@link FeedGroup}
      *
-     * @param groupDescription substitui a descrição de {@link FeedGroup}
+     * @param groupDescription new description of {@link FeedGroup}
      */
     @Override
     public void setDescription(String groupDescription) {
@@ -111,7 +100,7 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método que retorna o {@link FeedGroup#numberFeeds} do {@link FeedGroup}
+     * Method that returns {@link FeedGroup #numberFeeds} of {@link FeedGroup}
      *
      * @return {@link FeedGroup#numberFeeds}
      */
@@ -121,33 +110,32 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável pela adição de um {@link FeedContract} no array
-     * {@link FeedGroup} pelo seu url , preservando a ordem de inserção
+     * Method responsible for adding an {@link FeedContract} to the
+     * {@link FeedGroup} array by its url, preserving the insertion order
      *
-     * @param url a ser adicionado
+     * @param url url to be added
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      *
-     * @throws GroupException exceção lançada caso o {@link FeedContract} já
-     * exista no array {@link FeedGroup#feeds}
+     * @throws GroupException exception thrown if {@link FeedContract} already
+     * exists in the array {@link FeedGroup #feeds}
      */
     @Override
     public boolean addFeed(String url) throws GroupException {
 
         if (url == null) {
-            throw new NullPointerException("Não é possível adicionar o feed(url nulo)");
+            throw new NullPointerException("Unable to add feed (null url)");
         } else if (hasURL(url)) {
-            throw new GroupException("Não é possível adicionar o feed(Feed já existente)");
+            throw new GroupException("Unable to add the feed (Feed already exists)");
         } else if (numberFeeds == MAX_FEEDS) {
-            throw new ArrayIndexOutOfBoundsException("Não é possível adicionar o feed(Array cheio)");
+            throw new ArrayIndexOutOfBoundsException("Unable to add the feed (Array full)");
         } else {
             try {
                 Feed feedTest = new Feed(url);
                 RSSFeedParser.readFeed(feedTest);
-                //System.out.println(feedTest.toString());
                 this.feeds[numberFeeds] = feedTest;
                 this.numberFeeds++;
-                System.out.println("Feed adicionado com sucesso");
+                System.out.println("Feed added successfully");
                 return true;
             } catch (FeedException e) {
                 System.out.println(e.getMessage());
@@ -157,55 +145,55 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável pela adição de um {@link FeedContract} no array
-     * {@link FeedGroup} , preservando a ordem de inserção
+     * Method responsible for adding an {@link FeedContract} to the
+     * {@link FeedGroup} array, preserving the insertion order
      *
-     * @param newFeed {@link FeedContract} a ser adicionado no array
-     * {@link FeedGroup#feeds}
+     * @param newFeed {@link FeedContract} to be added to the array
+     * {@link FeedGroup #feeds}
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      *
-     * @throws GroupException exceção lançada caso o {@link FeedContract} já
-     * exista no array {@link FeedGroup#feeds}
+     * @throws GroupException exception thrown if {@link FeedContract} already
+     * exists in the array {@link FeedGroup #feeds}
      */
     @Override
     public boolean addFeed(FeedContract newFeed) throws GroupException {
 
         if (newFeed == null) {
-            throw new NullPointerException("Não é possível adicionar o feed(Feed nulo)");
+            throw new NullPointerException("Unable to add feed (Null feed)");
 
         } else if (hasFeed(newFeed)) {
-            throw new GroupException("Não é possível adicionar o feed(Feed já existente)");
+            throw new GroupException("Unable to add the feed (Feed already exists)");
         } else if (numberFeeds == MAX_FEEDS) {
-            throw new ArrayIndexOutOfBoundsException("Não é possível adicionar o feed(Array cheio)");
+            throw new ArrayIndexOutOfBoundsException("Unable to add the feed (Array full)");
         } else {
             this.feeds[this.numberFeeds] = newFeed;
             this.setID(groupID++);
             this.numberFeeds++;
-            System.out.println("Feed adicionado com sucesso");
+            System.out.println("Feed added successfully");
             return true;
         }
     }
 
     /**
-     * Método responsável pela remoção do {@link FeedContract} no array
-     * {@link FeedGroup#feeds}
+     * Method responsible for removing {@link FeedContract} in the
+     * {@link FeedGroup #feeds} array
      *
-     * @param fc {@link FeedContract} a ser removido do array
+     * @param fc {@link FeedContract} to be removid from the array
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      *
-     * @throws ObjectmanagementException exceção lançada caso o
-     * {@link FeedContract} não exista no array {@link FeedGroup#feeds}
+     * @throws ObjectmanagementException exception thrown if
+     * {@link FeedContract} does not exist in the array {@link FeedGroup #feeds}
      */
     @Override
     public boolean removeFeed(FeedContract fc) throws ObjectmanagementException {
         int pos;
         if (numberFeeds == 0) {
-            throw new ObjectmanagementException("Não é possível remover o tag (Array vazio)");
+            throw new ObjectmanagementException("Unable to remove the tag (empty array)");
         } else {
             if (findFeed(fc) == -1) {
-                throw new ObjectmanagementException("Não é possível remover a tag (ID não encontrado)");
+                throw new ObjectmanagementException("Unable to remove the tag (ID not found)");
             } else {
                 pos = findFeed(fc);
                 while (pos < this.feeds.length - 1) {
@@ -214,44 +202,44 @@ public class FeedGroup implements FeedGroupContract {
                 }
                 this.feeds[numberFeeds - 1] = null;
                 this.numberFeeds--;
-                System.out.println("Feed removido com sucesso");
+                System.out.println("Feed removed successfully");
                 return true;
             }
         }
     }
 
     /**
-     * Método responsável por obter um {@link FeedContract} no array de
-     * {@link FeedGroup#feeds} dada a sua posição no array
+     * Method responsible for obtaining a {@link FeedContract} in the array of
+     * {@link FeedGroup #feeds} given its position in the array
      *
-     * @param i posição do {@link FeedContract}
+     * @param i position of {@link FeedContract}
      *
-     * @return {@link FeedContract} na posição dada
+     * @return {@link FeedContract} in the given position
      *
-     * @throws ObjectmanagementException exceção lançada caso o
-     * {@link FeedContract} não exista na posição dada
+     * @throws ObjectmanagementException exception thrown if
+     * {@link FeedContract} does not exist in the given position
      */
     @Override
     public FeedContract getFeed(int i) throws ObjectmanagementException {
         if (this.feeds[i] == null) {
-            throw new ObjectmanagementException("Feed não existe na posição dada");
+            throw new ObjectmanagementException("Feed does not exist at the given position");
         } else if (i < 0 || i > this.feeds.length - 1) {
-            throw new ArrayIndexOutOfBoundsException("Posição inválida");
+            throw new ArrayIndexOutOfBoundsException("Invalid position");
         }
 
         return this.feeds[i];
     }
 
     /**
-     * Método responsável por obter um {@link FeedContract} no array de
-     * {@link FeedGroup#feeds} dado o id do {@link FeedContract}
+     * Method responsible for obtaining an {@link FeedContract} in the
+     * {@link FeedGroup #feeds} array given the {@link FeedContract} id
      *
-     * @param id do {@link FeedContract}
+     * @param id id of {@link FeedContract}
      *
-     * @return {@link FeedContract} do id dado
+     * @return {@link FeedContract} of the given id
      *
-     * @throws ObjectmanagementException exceção lançada caso o
-     * {@link FeedContract} não exista com o id dado
+     * @throws ObjectmanagementException exception thrown if
+     * {@link FeedContract} does not exist with the given id
      */
     @Override
     public FeedContract getFeedByID(int id) throws ObjectmanagementException {
@@ -260,14 +248,14 @@ public class FeedGroup implements FeedGroupContract {
             i++;
         }
         if (i == this.numberFeeds) {
-            throw new ObjectmanagementException("Feed não existe no id dado");
+            throw new ObjectmanagementException("Feed does not exist in the given id");
         }
         return this.feeds[i];
     }
 
     /**
-     ** Retorna dados de cada feed, permitindo a instanciação de
-     * {@link FeedContract} e os seus {@link FeedItem}
+     * Returns data for each feed, allowing instantiation of
+     * {@link FeedContract} and its {@link FeedItem}
      */
     @Override
     public void getData() {
@@ -277,14 +265,14 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Representação textual de {@link FeedGroup}
+     * Textual representation of {@link FeedGroup}
      *
-     * @return informação de {@link FeedGroup}
+     * @return {@link FeedGroup} information
      */
     @Override
     public String toString() {
-        String string = "FeedGroup{" + "id: " + groupID + ", título: " + groupTitle + ", descrição: "
-                + groupDescription + "\n" + "Feeds do group: {" + "\n";
+        String string = "FeedGroup{" + "id: " + groupID + ", title: " + groupTitle + ", description: "
+                + groupDescription + "\n" + "Group feeds: {" + "\n";
         int i = 0;
         while (i < this.numberFeeds) {
             string += "\t" + this.feeds[i].toString() + "\n";
@@ -294,12 +282,12 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável por verificar se o {@link FeedContract} existe no
-     * array {@link FeedGroup#feeds} ou não
+     * Method responsible for checking whether {@link FeedContract} exists in
+     * the {@link FeedGroup #feeds} array or not
      *
-     * @param feed a ser procurado
+     * @param feed to be sought
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     public boolean hasFeed(FeedContract feed) {
 
@@ -314,12 +302,12 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável por verificar se o {@link FeedContract#getURL()}
-     * existe no array {@link FeedGroup#feeds} ou não
+     * Method responsible for checking whether {@link FeedContract #getURL ()}
+     * exists in the {@link FeedGroup #feeds} array or not
      *
-     * @param url a ser procurado
+     * @param url url to be sought
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     public boolean hasURL(String url) {
 
@@ -332,13 +320,13 @@ public class FeedGroup implements FeedGroupContract {
     }
 
     /**
-     * Método responsável por encontrar um {@link FeedContract} no array
-     * {@link FeedGroup#feeds}
+     * Method responsible for finding an {@link FeedContract} in the array
+     * {@link FeedGroup #feeds}
      *
-     * @param feed a ser encontrado
+     * @param feed to be found
      *
-     * @return posição do {@link FeedContract} no array {@link FeedGroup#feeds},
-     * caso a posição seja -1 o feed não foi encontrado
+     * @return {@link FeedContract} position in the array
+     * {@link FeedGroup #feeds}, if the position is -1 the feed was not found
      */
     public int findFeed(FeedContract feed) {
 
@@ -352,5 +340,4 @@ public class FeedGroup implements FeedGroupContract {
         }
         return pos;
     }
-
 }

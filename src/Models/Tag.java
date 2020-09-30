@@ -1,20 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
 import rss.resources.app.Models.TagContract;
 
-/*
-* Nome: João Tiago Moreira Pereira
-* Número: 8170202
-* Turma: LEI1T2
-*
-* Nome: José Miguel Araújo de Carvalho
-* Número: 8150146
-* Turma: LEI1T2
+/**
+ * @author João Pereira
  */
 public class Tag implements TagContract {
 
@@ -27,9 +16,9 @@ public class Tag implements TagContract {
     }
 
     /**
-     * Método que retorna o {@link Tag#id} de {@link Tag}
+     * Method that returns {@link Tag #id} of {@link Tag}
      *
-     * @return id de {@link Tag}
+     * @return id of {@link Tag}
      */
     @Override
     public int getID() {
@@ -37,18 +26,18 @@ public class Tag implements TagContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link Tag#id} de {@link Tag}
+     * Method responsible for defining the {@link Tag #id} of {@link Tag}
      *
-     * @param id a ser substituido
+     * @param id new id
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Método que retorna o {@link Tag#name} de {@link Tag}
+     * Method that returns the {@link Tag #name} of {@link Tag}
      *
-     * @return nome de {@link Tag}
+     * @return {@link Tag#name}
      */
     @Override
     public String getName() {
@@ -56,9 +45,9 @@ public class Tag implements TagContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link Tag#name} de {@link Tag}
+     * Method responsible for defining {@link Tag #name} of {@link Tag}
      *
-     * @param name a ser substituido
+     * @param name new {@link Tag#name}
      */
     public void setName(String name) {
         if (name != null) {
@@ -67,13 +56,12 @@ public class Tag implements TagContract {
     }
 
     /**
-     * Método responsável pela impressão dos atributos de {@link Tag}
+     * Textual representation of {@link Tag}
      *
-     * @return dados de {@link Tag}
+     * @return {@link Tag} information
      */
     @Override
     public String toString() {
         return "Tag{" + "id:" + id + ", name:" + name + '}';
     }
-
 }

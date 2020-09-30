@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
 import java.util.Calendar;
@@ -11,14 +6,8 @@ import rss.resources.app.Models.FeedItemContract;
 import rss.resources.app.exceptions.FeedException;
 import rss.resources.app.exceptions.ObjectmanagementException;
 
-/*
-* Nome: João Tiago Moreira Pereira
-* Número: 8170202
-* Turma: LEI1T2
-*
-* Nome: José Miguel Araújo de Carvalho
-* Número: 8150146
-* Turma: LEI1T2
+/**
+ * @author João Pereira
  */
 public class Feed extends FeedSource implements FeedContract {
 
@@ -66,7 +55,7 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método que retorna o {@link Feed#title} do {@link Feed}
+     * Method that returns {@link Feed #title} of {@link Feed}
      *
      * @return {@link Feed#title}
      */
@@ -76,10 +65,9 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link Feed#title} de
-     * {@link Feed}
+     * Method responsible for defining {@link Feed #title} of {@link Feed}
      *
-     * @param title substitui o título de {@link Feed}
+     * @param title new title of {@link Feed}
      */
     @Override
     public void setTitle(String title) {
@@ -87,7 +75,7 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método que retorna a {@link Feed#description} do {@link Feed}
+     * Method that returns {@link Feed #description} of {@link Feed}
      *
      * @return {@link Feed#description}
      */
@@ -97,10 +85,9 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link Feed#description} de
-     * {@link Feed}
+     * Method responsible for defining {@link Feed #description} of {@link Feed}
      *
-     * @param description substitui a descrição de {@link Feed}
+     * @param description new description of {@link Feed}
      */
     @Override
     public void setDescription(String description) {
@@ -108,7 +95,7 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método que retorna a {@link Feed#language} do {@link Feed}
+     * Method that returns {@link Feed #language} for {@link Feed}
      *
      * @return {@link Feed#language}
      */
@@ -118,10 +105,9 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link Feed#language} de
-     * {@link Feed}
+     * Method responsible for defining {@link Feed #language} of {@link Feed}
      *
-     * @param language substitui o idioma de {@link Feed}
+     * @param language new language of {@link Feed}
      */
     @Override
     public void setLanguage(String language) {
@@ -129,7 +115,7 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método que retorna a {@link Feed#buildDate} do {@link Feed}
+     * Method that returns {@link Feed #buildDate} from {@link Feed}
      *
      * @return {@link Feed#buildDate}
      */
@@ -139,10 +125,9 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método responsável pela substituição do {@link Feed#buildDate} de
-     * {@link Feed}
+     * Method responsible for defining {@link Feed #buildDate} of {@link Feed}
      *
-     * @param buildDate substitui a data de publicação de {@link Feed}
+     * @param buildDate new publication date of {@link Feed}
      */
     @Override
     public void setBuildDate(Calendar buildDate) {
@@ -150,7 +135,7 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método que retorna {@link Feed#numberCategories} do {@link Feed}
+     * Method that returns {@link Feed #numberCategories} of {@link Feed}
      *
      * @return {@link Feed#numberCategories}
      */
@@ -160,7 +145,7 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método que retorna {@link Feed#numberItems} do {@link Feed}
+     * Method that returns {@link Feed #numberItems} of {@link Feed}
      *
      * @return {@link Feed#numberItems}
      */
@@ -170,41 +155,40 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método responsável pela adição de um {@link FeedItem} ao array
-     * {@link Feed#items}
+     * Method responsible for adding an {@link FeedItem} to the array
+     * {@link Feed #items}
      *
-     * @param title título do {@link FeedItem}
+     * @param title title of {@link FeedItem}
      *
-     * @param contentURL url do {@link FeedItem}
+     * @param contentURL url of {@link FeedItem}
      *
-     * @param description descrição do {@link FeedItem}
+     * @param description description of {@link FeedItem}
      *
-     * @param publicationDate data de publicação do {@link FeedItem}
+     * @param publicationDate publication date of {@link FeedItem}
      *
-     * @param category categoria do {@link FeedItem}
+     * @param category category of {@link FeedItem}
      *
-     * @param author autor do {@link FeedItem}
+     * @param author author of {@link FeedItem}
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     @Override
     public boolean addItem(String title, String contentURL, String description,
             Calendar publicationDate, String category, String author) {
 
-        if (title == null || contentURL == null || description == null /*|| publicationDate == null*/
-                || category == null /*|| author == null*/) {
-            throw new NullPointerException("Não é possível adicionar um item (Uma ou mais variáveis são nula(s))");
+        if (title == null || contentURL == null || description == null
+                || category == null) {
+            throw new NullPointerException("Cannot add an item (One or more variables are null)");
         } else if (this.numberItems == MAX_ITEMS) {
-            throw new ArrayIndexOutOfBoundsException("Não é possível adicionar um item (Array cheio)");
+            throw new ArrayIndexOutOfBoundsException("Cannot add an item (Array full)");
         } else {
             FeedItem itemTest = new FeedItem(title, contentURL, description, publicationDate, author);
-//FeedItem itemTest = new FeedItem(title, description, publicationDate, this.ItemID++, contentURL, author);
             for (int i = 0; i < this.items.length; i++) {
                 if (this.items[i] == null) {
                     this.items[i] = itemTest;
                     this.items[i].addCategory(category);
                     this.numberItems++;
-                    System.out.println("Item adicionado com sucesso");
+                    System.out.println("Item added successfully");
                     return true;
                 }
             }
@@ -213,48 +197,47 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método responsável por obter um {@link FeedItem} no array de
-     * {@link Feed#items} dada a sua posição no array
+     * Method responsible for obtaining an {@link FeedItem} in the
+     * {@link Feed #items} array given its position in the array
      *
-     * @param i posição do {@link FeedItem}
+     * @param i position of {@link FeedItem}
      *
-     * @return {@link FeedItem} na posição dada
+     * @return {@link FeedItem} in the given position
      *
-     * @throws ObjectmanagementException exceção lançada caso o {@link FeedItem}
-     * não exista na posição dada
+     * @throws ObjectmanagementException exception thrown if {@link FeedItem}
+     * does not exist in the position given
      */
     @Override
     public FeedItemContract getItem(int i) throws ObjectmanagementException {
 
         if (this.items[i] == null) {
-            throw new ObjectmanagementException("Item não existe na posição dada");
+            throw new ObjectmanagementException("Item does not exist in the given position");
         } else if (i < 0 || i > this.items.length - 1) {
-            throw new ArrayIndexOutOfBoundsException("Posição inválida");
+            throw new ArrayIndexOutOfBoundsException("Invalid position");
         }
-        //System.out.println("O item na posição " + i + " é : "+this.items[i]);
         return this.items[i];
     }
 
     /**
-     * Método responsável por adicionar uma categoria ao array de
-     * {@link Feed#categories}
+     * Method responsible for adding a category to the {@link Feed #categories}
+     * array
      *
-     * @param category a ser adicionada
+     * @param category category to be added
      *
-     * @return sucesso/insucesso da operação
+     * @return success/failure of the operation
      */
     @Override
     public boolean addCategory(String category) {
         if (category == null) {
-            throw new NullPointerException("Não é possível adicionar a categoria no feed (Categoria nula)");
+            throw new NullPointerException("Cannot add category to feed (Category null)");
         } else if (this.numberCategories == MAX_CATEGORIES) {
-            throw new ArrayIndexOutOfBoundsException("Não é possível adicionar uma categoria no feed (Array cheio)");
+            throw new ArrayIndexOutOfBoundsException("Cannot add a category to the feed (Array full)");
         } else {
             for (int i = 0; i < this.categories.length; i++) {
                 if (this.categories[i] == null) {
                     this.categories[i] = category;
                     this.numberCategories++;
-                    System.out.println("Categoria adicionada.");
+                    System.out.println("Category added.");
                     return true;
                 }
             }
@@ -263,45 +246,44 @@ public class Feed extends FeedSource implements FeedContract {
     }
 
     /**
-     * Método responsável por obter uma categoria no array de
-     * {@link Feed#categories} dada a sua posição no array
+     * Method responsible for obtaining a category in the array of
+     * {@link Feed #categories} given its position in the array
      *
-     * @param i posição da categoria
+     * @param i category position
      *
-     * @return categoria na posição dada
+     * @return category in the given position
      *
-     * @throws ObjectmanagementException exceção lançada caso a categoria não
-     * exista na posição dada
+     * @throws ObjectmanagementException exception thrown if the category does
+     * not exist in the position given
      */
     @Override
     public String getCategory(int i) throws ObjectmanagementException {
         if (this.categories[i] == null) {
-            throw new ObjectmanagementException("Categoria não existente.");
+            throw new ObjectmanagementException("Category does not exist.");
         } else if (i < 0 || i > this.categories.length - 1) {
-            throw new ObjectmanagementException("Posição inválida");
+            throw new ObjectmanagementException("Invalid position");
         }
         return this.categories[i];
     }
 
     /**
-     * Representação textual de {@link Feed}
+     * Textual representation of {@link Feed}
      *
-     * @return informação de {@link Feed}
+     * @return {@link Feed} information
      */
-    //buildDate.get(GregorianCalendar.DAY_OF_MONTH) + "/" + buildDate.get(GregorianCalendar.MONTH) + "/" + buildDate.get(GregorianCalendar.YEAR)
     @Override
     public String toString() {
-        String string = "Feed{" + "id: " + getID() + ", title: " + title + ", descrição: " + description + ", idioma: " + language
-                + ", data de publicação do feed: " + (buildDate == null ? "N/D" : buildDate.getTime()) + " " + super.toString() + "\n" + "Items do feed: {" + "\n";
+        String string = "Feed{" + "id: " + getID() + ", title: " + title + ", description: " + description + ", language: " + language
+                + ", feed publication date: " + (buildDate == null ? "N/D" : buildDate.getTime()) + " " + super.toString() + "\n" + "Feed items: {" + "\n";
         if (this.numberItems == 0) {
-            System.out.println("Feed sem items");
+            System.out.println("Feed without items");
         }
         int i = 0;
         while (i < this.numberItems) {
             string += "\t" + this.items[i].toString() + "\n";
             i++;
         }
-        String string2 = "\n" + "Categorias do feed: {" + "\n";
+        String string2 = "\n" + "Feed categories: {" + "\n";
 
         int j = 0;
         while (j < this.numberCategories) {
@@ -310,5 +292,4 @@ public class Feed extends FeedSource implements FeedContract {
         }
         return string + '}' + string2 + '}';
     }
-
 }
