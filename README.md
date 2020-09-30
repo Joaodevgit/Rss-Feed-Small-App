@@ -22,7 +22,7 @@ Some of the project screenshots
 
 ## Documentation
 To access project javadoc you need to download to a zip format this project and then go to directory dist/javadoc/index.html
-<p><a href="https://github.com/Joaodevgit/Parking-Lot/tree/master/dist/javadoc"> Documentation File</a></p>
+<p><a href=""> Project Documentation Directory</a></p>
 
 ## License
 
